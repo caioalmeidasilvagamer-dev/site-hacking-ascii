@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=IBM+Plex+Mono:wght@400&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-error-container": "#ffdad6",
+                "on-secondary-fixed": "#141e18",
+                "inverse-primary": "#006e27",
+                "on-secondary-container": "#b0bbb2",
+                "on-primary-fixed": "#002107",
+                "primary-fixed-dim": "#00e55b",
+                "tertiary-fixed-dim": "#c8c6c8",
+                "secondary-fixed-dim": "#bec9c0",
+                "on-secondary": "#28332c",
+                "primary": "#edffe8",
+                "on-primary-fixed-variant": "#00531b",
+                "surface-variant": "#2d372c",
+                "on-surface-variant": "#b9ccb5",
+                "secondary-container": "#414c45",
+                "inverse-surface": "#dae6d5",
+                "background": "#000000",
+                "on-tertiary-container": "#626163",
+                "surface-container-high": "#222d22",
+                "on-secondary-fixed-variant": "#3f4942",
+                "surface-container-low": "#141e14",
+                "outline-variant": "#3b4b3a",
+                "primary-fixed": "#6bff83",
+                "error-container": "#93000a",
+                "surface-container-lowest": "#071007",
+                "tertiary": "#fcf9fc",
+                "on-tertiary-fixed": "#1b1b1d",
+                "on-primary-container": "#007128",
+                "surface-dim": "#000000",
+                "on-surface": "#dae6d5",
+                "error": "#ffb4ab",
+                "outline": "#849581",
+                "on-error": "#690005",
+                "on-background": "#dae6d5",
+                "surface-tint": "#00e55b",
+                "on-tertiary": "#303032",
+                "surface-container-highest": "#2d372c",
+                "secondary-fixed": "#dae5dc",
+                "on-tertiary-fixed-variant": "#474649",
+                "secondary": "#bec9c0",
+                "surface-bright": "#313c30",
+                "tertiary-fixed": "#e4e2e4",
+                "surface": "#000000",
+                "tertiary-container": "#dfdddf",
+                "surface-container": "#182218",
+                "inverse-on-surface": "#293328",
+                "primary-container": "#00ff66",
+                "on-primary": "#003911"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "gutter": "16px",
+                "container-margin": "24px",
+                "unit": "4px",
+                "panel-padding": "12px"
+        },
+        "fontFamily": {
+                "metadata": [
+                        "JetBrains Mono"
+                ],
+                "headline-md": [
+                        "Space Grotesk"
+                ],
+                "headline-lg": [
+                        "Space Grotesk"
+                ],
+                "body-md": [
+                        "JetBrains Mono"
+                ],
+                "body-lg": [
+                        "JetBrains Mono"
+                ],
+                "label-caps": [
+                        "Courier Prime"
+                ]
+        },
+        "fontSize": {
+                "metadata": [
+                        "10px",
+                        {
+                                "lineHeight": "1",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "1.2",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "1.2",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-md": [
+                        "14px",
+                        {
+                                "lineHeight": "1.5",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-lg": [
+                        "16px",
+                        {
+                                "lineHeight": "1.5",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-caps": [
+                        "12px",
+                        {
+                                "lineHeight": "1",
+                                "letterSpacing": "0.1em",
+                                "fontWeight": "700"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script><meta charset="utf-8"/></head><body class="font-body-md bg-background min-h-screen flex flex-col">
+<div class="scanlines"></div>
+<!-- Top-->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-container-margin h-14 border-b border-surface-container-highest bg-surface dark:bg-surface">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md text-on-surface uppercase italic">MATRIX_OS_v4.0.2</span>
+<span class="font-metadata text-metadata text-on-surface-variant opacity-70 ml-4 hidden md:inline-block">SYS_STATUS: ONLINE // ENCRYPTION: LEVEL_9</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center border border-surface-container-highest bg-surface-container px-2 py-1">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-2" style="font-variation-settings: 'FILL' 0;">search</span>
+<input class="bg-transparent border-none text-on-surface font-metadata text-metadata focus:ring-0 p-0 w-32 placeholder-on-surface-variant" placeholder="Search..." type="text"/>
+</div>
+<div class="flex gap-4">
+<button class="text-on-surface-variant hover:text-on-surface transition-all duration-75">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">terminal</span>
+</button>
+<button class="text-on-surface-variant hover:text-on-surface transition-all duration-75">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings_input_component</span>
+</button>
+<button class="text-on-surface-variant hover:text-on-surface transition-all duration-75">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">memory</span>
+</button>
+</div>
+</div>
+</header>
+<!-- SideNavBar (Hidden on Mobile, flex on MD) -->
+<nav class="hidden md:flex fixed left-0 top-14 bottom-0 w-64 z-40 flex-col border-r border-surface-container-highest bg-surface dark:bg-surface">
+<div class="p-4 border-b border-surface-container-highest bg-surface-container-lowest">
+<div class="font-headline-md text-headline-md tracking-widest text-on-surface">NODE_01</div>
+<div class="font-metadata text-metadata text-on-surface-variant mt-1">COORD: 34.0522 N</div>
+</div>
+<div class="flex-1 overflow-y-auto py-4">
+<ul class="space-y-1">
+<!-- Active Item -->
+<li class="">
+<a class="bg-surface-container-high text-on-surface border-l-4 border-primary-fixed-dim flex items-center p-2 font-metadata text-metadata uppercase hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined mr-3 text-primary-fixed-dim" style="font-variation-settings: 'FILL' 0;">fingerprint</span>
+                        AGENT_ID
+                    </a>
+</li>
+<li class="">
+<a class="text-on-surface-variant flex items-center p-2 font-metadata text-metadata uppercase hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined mr-3" style="font-variation-settings: 'FILL' 0;">encrypted</span>
+                        SEC_CLEARANCE
+                    </a>
+</li>
+<li class="">
+<a class="text-on-surface-variant flex items-center p-2 font-metadata text-metadata uppercase hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined mr-3" style="font-variation-settings: 'FILL' 0;">verified_user</span>
+                        SYS_INTEGRITY
+                    </a>
+</li>
+<li class="">
+<a class="text-on-surface-variant flex items-center p-2 font-metadata text-metadata uppercase hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined mr-3" style="font-variation-settings: 'FILL' 0;">settings_ethernet</span>
+                        NET_TRAFFIC
+                    </a>
+</li>
+<li class="">
+<a class="text-on-surface-variant flex items-center p-2 font-metadata text-metadata uppercase hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined mr-3" style="font-variation-settings: 'FILL' 0;">thermostat</span>
+                        CORE_TEMP
+                    </a>
+</li>
+</ul>
+<div class="mt-8 px-4">
+<button class="w-full border border-surface-container-highest bg-surface-container text-on-surface font-metadata text-metadata uppercase py-2 hover:bg-surface-container-high transition-all">
+                    PURGE_CACHE
+                </button>
+</div>
+</div>
+<div class="border-t border-surface-container-highest p-2 space-y-1 bg-surface-container-lowest">
+<a class="text-on-surface-variant flex items-center p-2 font-metadata text-metadata uppercase hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined mr-3" style="font-variation-settings: 'FILL' 0;">logout</span>
+                LOGOUT
+            </a>
+<a class="text-on-surface-variant flex items-center p-2 font-metadata text-metadata uppercase hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined mr-3" style="font-variation-settings: 'FILL' 0;">restart_alt</span>
+                REBOOT
+            </a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 pt-14 md:ml-64 pb-10 overflow-x-hidden p-container-margin">
+<!-- Header Section -->
+<div class="mb-container-margin border border-surface-container-highest bg-surface p-4 flex flex-col md:flex-row justify-between items-start md:items-center border-l-4 border-l-primary-fixed-dim">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface uppercase tracking-widest">ZION_DB // RESISTANCE</h1>
+<p class="font-metadata text-metadata text-on-surface-variant mt-2">DIR: /ROOT/ZION/OPERATIVES <span class="blinking-cursor">_</span></p>
+</div>
+<div class="mt-4 md:mt-0 flex gap-4 text-right">
+<div class="border border-surface-container-highest p-2 bg-surface-container-lowest">
+<div class="font-label-caps text-label-caps text-on-surface-variant">SYS_TIME</div>
+<div class="font-metadata text-metadata text-on-surface">2199.11.05 // 14:32:01</div>
+</div>
+<div class="border border-surface-container-highest p-2 bg-surface-container-lowest">
+<div class="font-label-caps text-label-caps text-on-surface-variant">DEFCON</div>
+<div class="font-metadata text-metadata text-error font-bold">LEVEL 2</div>
+</div>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter max-w-7xl mx-auto">
+<!-- REBEL_DORSIERS (Main Wide Column) -->
+<section class="md:col-span-8 flex flex-col gap-4">
+<div class="bg-surface-container-high px-3 py-2 flex justify-between items-center border border-surface-container-highest">
+<span class="font-metadata text-metadata text-on-surface uppercase">REBEL_DORSIERS.exe</span>
+<span class="font-metadata text-metadata text-on-surface-variant tracking-widest">[ _ ] [ # ] [ X ]</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Dossier Card 1 -->
+<div class="border border-surface-container-highest bg-surface p-4 relative group">
+<div class="absolute top-0 right-0 bg-surface-container-high text-on-surface-variant border border-surface-container-highest border-t-0 border-r-0 font-label-caps text-label-caps px-2 py-1">TARGET_01</div>
+<div class="flex gap-4">
+<div class="w-24 h-24 border border-surface-container-highest bg-surface-container-lowest overflow-hidden grayscale group-hover:grayscale-0 transition-all">
+<img alt="Morpheus" class="w-full h-full object-cover mix-blend-luminosity opacity-80" data-alt="A stark, high-contrast digital portrait of a resolute man in a dark trench coat and reflective sunglasses, illuminated by a harsh, cold green light indicative of a cyber-noir dystopian matrix setting. Industrial metallic textures and faint falling digital rain code are subtly layered over the background. The mood is intense, secretive, and highly technological." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZFfTriz0YyD3-jq-y7eWnjRo18B2OK4N5gyeWU-y7Up5woDVZmkPFa2XUesuA6adHBAfjYByfZovdHTLvmiLaDzYA0mhwD26MTw8kjMOD2XeFy0Ps2ZjsTRAw3yMDmrKcvvw0jNNw4S_0xVGKOVq8tZXUVf1xhgpsW0Q8AtexOz1lCqTg5kCR5TBakcilM4f17ZAC3Q2LZ9X1mjUndX1dEni0o_WB3almvhkhn_YCT9iW44Uo3IxSqjVCYqklmHL1FdA4r-dZen7q"/>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-md text-headline-md text-on-surface uppercase text-lg">Morpheus</h3>
+<ul class="font-metadata text-metadata text-on-surface-variant mt-2 space-y-1">
+<li class=""><span class="text-on-surface">RANK:</span> Captain</li>
+<li class=""><span class="text-on-surface">SHIP:</span> Nebuchadnezzar</li>
+<li class=""><span class="text-on-surface">STATUS:</span> Active in Matrix</li>
+</ul>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-container-highest">
+<div class="flex justify-between items-center font-label-caps text-label-caps">
+<span class="text-on-surface-variant">COMBAT PRO:</span>
+<span class="text-on-surface">LVL 9</span>
+</div>
+<div class="w-full bg-surface-container-lowest h-1 mt-1 border border-surface-container-highest">
+<div class="bg-primary-fixed-dim h-full w-[90%] opacity-50"></div>
+</div>
+</div>
+</div>
+<!-- Dossier Card 2 -->
+<div class="border border-surface-container-highest bg-surface p-4 relative group">
+<div class="absolute top-0 right-0 bg-surface-container-high text-on-surface-variant border border-surface-container-highest border-t-0 border-r-0 font-label-caps text-label-caps px-2 py-1">TARGET_02</div>
+<div class="flex gap-4">
+<div class="w-24 h-24 border border-surface-container-highest bg-surface-container-lowest overflow-hidden grayscale group-hover:grayscale-0 transition-all">
+<img alt="Trinity" class="w-full h-full object-cover mix-blend-luminosity opacity-80" data-alt="A stark, high-contrast digital portrait of a fierce woman with slicked-back dark hair in a sleek black PVC outfit, illuminated by a harsh, cold green light indicative of a cyber-noir dystopian matrix setting. Industrial metallic textures and faint falling digital rain code are subtly layered over the background. The mood is intense, secretive, and highly technological." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkO9HJqvBAstCwMZ4HjSzVXyrfbiTJusDRzk3drL3Y9g1JkilY2CJLCS3DG92Q3ARgN25FkFtBlcHetonOIa_Ftd1WyL1zqKP1gPrBaBN6jqGSknVCRUTdJP99Cem79G40X2691QmrZXctlCxx-Y_3gzH00u9a3Ggsrc_u0rrvrT3NlCMjFLCWCUpQ-lJkHXeEwgsSaPSPL9OExK566RKgIjpnKRWLTq3hakNpexw_Cc9y_7jI8DvY8p7ovBq8n7zxMxaYY2HBHzK3"/>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-md text-headline-md text-on-surface uppercase text-lg">Trinity</h3>
+<ul class="font-metadata text-metadata text-on-surface-variant mt-2 space-y-1">
+<li class=""><span class="text-on-surface">RANK:</span> First Mate</li>
+<li class=""><span class="text-on-surface">SHIP:</span> Nebuchadnezzar</li>
+<li class=""><span class="text-on-surface">STATUS:</span> Active in Matrix</li>
+</ul>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-container-highest">
+<div class="flex justify-between items-center font-label-caps text-label-caps">
+<span class="text-on-surface-variant">COMBAT PRO:</span>
+<span class="text-on-surface">LVL 9</span>
+</div>
+<div class="w-full bg-surface-container-lowest h-1 mt-1 border border-surface-container-highest">
+<div class="bg-primary-fixed-dim h-full w-[95%] opacity-50"></div>
+</div>
+</div>
+</div>
+<!-- Dossier Card 3 (Full Width) -->
+<div class="md:col-span-2 border border-surface-container-highest bg-surface p-4 relative group">
+<div class="absolute top-0 right-0 bg-surface-container-high text-on-surface border border-surface-container-highest border-t-0 border-r-0 font-label-caps text-label-caps px-2 py-1 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-primary-fixed-dim animate-pulse"></span> ANOMALY DETECTED</div>
+<div class="flex gap-4">
+<div class="w-32 h-32 border border-surface-container-highest bg-surface-container-lowest overflow-hidden grayscale">
+<img alt="Neo" class="w-full h-full object-cover mix-blend-luminosity opacity-80" data-alt="A stark, high-contrast digital portrait of a pale, intensely focused young man in a dark coat, illuminated by a harsh, bright neon green light indicative of a cyber-noir dystopian matrix setting. The background is a dense, scrolling wall of glowing green digital code. The mood is transcendent, powerful, and highly technological." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPslV_fxqDiQ2lKURmu-PdQmcv3mtvb4MRSTgZVR1yPtBCom3TZSoELmovSh8oT2_kho3kD5Pu6tIRseIEeLYaETFcdukTbwgfirxoafQ5itoy1aCb_ChcKeieoZQtn6Xd4Bbyi9OZjdqTyphY1iBqVR2jyVjd1OxG2wwHkp2uDeBBf5jliITzOve1qiN8_gua75QtuY3cMA0K85EFEoDTDUFivRG2w96Eg-8KvePL4wy9EPiaRww1WdeidomBIoBi3M3JdnWzITNg"/>
+</div>
+<div class="flex-1 grid grid-cols-2 gap-4">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface uppercase text-xl">Neo // The One</h3>
+<ul class="font-metadata text-metadata text-on-surface-variant mt-2 space-y-1">
+<li class=""><span class="text-on-surface">ALIAS:</span> Thomas A. Anderson</li>
+<li class=""><span class="text-on-surface">STATUS:</span> <span class="text-primary-fixed-dim">OPERATIVE</span></li>
+<li class=""><span class="text-on-surface">LOC:</span> 0x8F9A2B (Simulation)</li>
+</ul>
+</div>
+<div class="border-l border-surface-container-highest pl-4 flex flex-col justify-center">
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-1">SYSTEM ANOMALY LEVEL</div>
+<div class="text-3xl text-on-surface font-headline-md">ERR_MAX</div>
+<div class="w-full bg-surface-container-lowest h-2 mt-2 border border-surface-container-highest">
+<div class="bg-primary-fixed-dim h-full w-full opacity-30"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SIDEBAR COLUMN -->
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<!-- SENTINEL_TRACKER HUD -->
+<section class="flex flex-col border border-surface-container-highest bg-surface">
+<div class="bg-surface-container-highest px-3 py-2 flex justify-between items-center border-b border-surface-container-highest">
+<span class="font-metadata text-metadata text-error uppercase font-bold">WARNING: SENTINEL_PROXIMITY</span>
+<span class="material-symbols-outlined text-error text-sm" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div class="p-4 flex flex-col items-center justify-center bg-surface-container-lowest">
+<!-- Radar Mockup -->
+<div class="relative w-40 h-40 border border-surface-container-highest rounded-full overflow-hidden mb-4 bg-surface">
+<!-- Radar Grid -->
+<div class="absolute inset-0 border border-surface-container-highest rounded-full"></div>
+<div class="absolute inset-4 border border-surface-container-highest rounded-full"></div>
+<div class="absolute inset-10 border border-surface-container-highest rounded-full"></div>
+<div class="absolute left-1/2 top-0 bottom-0 w-px bg-surface-container-highest"></div>
+<div class="absolute top-1/2 left-0 right-0 h-px bg-surface-container-highest"></div>
+<!-- Radar Sweep (CSS Animation) -->
+<div class="absolute inset-0 bg-[conic-gradient(from_0deg,transparent_70%,rgba(0,229,91,0.1)_100%)] rounded-full animate-[spin_3s_linear_infinite]"></div>
+<!-- Blips -->
+<div class="absolute top-[20%] left-[30%] w-1.5 h-1.5 bg-error rounded-full animate-pulse shadow-[0_0_4px_red]"></div>
+<div class="absolute top-[40%] left-[60%] w-1.5 h-1.5 bg-error rounded-full animate-pulse shadow-[0_0_4px_red]" style="animation-delay: 0.5s;"></div>
+<div class="absolute top-[70%] left-[45%] w-1.5 h-1.5 bg-error rounded-full animate-pulse shadow-[0_0_4px_red]" style="animation-delay: 1s;"></div>
+<!-- Center Point -->
+<div class="absolute top-1/2 left-1/2 w-1.5 h-1.5 bg-primary-fixed-dim rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+</div>
+<div class="w-full grid grid-cols-2 gap-2 text-center">
+<div class="border border-surface-container-highest bg-surface p-2">
+<div class="font-label-caps text-label-caps text-on-surface-variant">SQUIDS IN SECTOR</div>
+<div class="font-metadata text-metadata text-error text-lg">14,203</div>
+</div>
+<div class="border border-surface-container-highest bg-surface p-2">
+<div class="font-label-caps text-label-caps text-on-surface-variant">EST. INTERCEPT</div>
+<div class="font-metadata text-metadata text-error text-lg">14:22 MIN</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Terminal Output Module -->
+<section class="flex flex-col flex-1 border border-surface-container-highest bg-surface">
+<div class="bg-surface-container-high px-3 py-2 flex justify-between items-center border-b border-surface-container-highest">
+<span class="font-metadata text-metadata text-on-surface uppercase">SYS_LOG.dmp</span>
+</div>
+<div class="p-3 bg-surface-container-lowest h-48 overflow-y-auto font-metadata text-[10px] text-on-surface-variant leading-relaxed">
+<p class="">&gt; init root/zion_access.sh</p>
+<p class="">&gt; Establishing secure connection...</p>
+<p class="">&gt; Handshake successful. Encrypting (AES-256).</p>
+<p class="">&gt; Ping response from Zion Mainframe: 12ms</p>
+<p class="">&gt; WARNING: unauthorized access attempt blocked at node 0x88F.</p>
+<p class="">&gt; Rerouting traffic through proxy A3.</p>
+<p class="">&gt; Downloading operator manifest...</p>
+<p class="">&gt; [OK] 4023 bytes received.</p>
+<p class="">&gt; Searching for anomaly signatures...</p>
+<p class="text-error">&gt; ERR: Signature matches known Agent program.</p>
+<p class="">&gt; Initiating trace protocol.</p>
+<p class="">&gt; Trace failed. Connection severed at source.</p>
+<p class="">&gt; Awaiting further input <span class="blinking-cursor text-on-surface-variant">█</span></p>
+</div>
+</section>
+</div>
+<!-- SHIP_REGISTRY (Full Width Bottom) -->
+<section class="md:col-span-12 flex flex-col mt-4 border border-surface-container-highest bg-surface">
+<div class="bg-surface-container-high px-3 py-2 flex justify-between items-center border-b border-surface-container-highest">
+<span class="font-metadata text-metadata text-on-surface uppercase">SHIP_REGISTRY // FLEET_STATUS</span>
+</div>
+<div class="p-4 bg-surface-container-lowest">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Ship 1 -->
+<div class="border border-surface-container-highest bg-surface p-4">
+<div class="flex justify-between items-start mb-3 border-b border-surface-container-highest pb-3">
+<h4 class="font-metadata text-metadata text-on-surface uppercase">Nebuchadnezzar</h4>
+<span class="px-2 py-0.5 bg-surface-container-high text-on-surface font-label-caps text-[10px] border border-surface-container-highest">ACTIVE</span>
+</div>
+<div class="space-y-2 font-metadata text-[11px] text-on-surface-variant">
+<div class="flex justify-between">
+<span class="">CAPACITY:</span> <span class="text-on-surface">9/12</span>
+</div>
+<div class="flex justify-between">
+<span class="">EMP CHARGE:</span> <span class="text-on-surface">100% [READY]</span>
+</div>
+<div class="flex justify-between">
+<span class="">CORE TEMP:</span> <span class="text-on-surface">450K</span>
+</div>
+<div class="mt-3 text-on-surface-variant opacity-70 whitespace-pre">
+├── HULL:    [||||||||  ] 80%
+├── SHIELDS: [||||||||||] 100%
+└── WEAPONS: [|||       ] 30%
+                                </div>
+</div>
+</div>
+<!-- Ship 2 -->
+<div class="border border-surface-container-highest bg-surface p-4">
+<div class="flex justify-between items-start mb-3 border-b border-surface-container-highest pb-3">
+<h4 class="font-metadata text-metadata text-on-surface uppercase">Logos</h4>
+<span class="px-2 py-0.5 bg-surface-container-high text-on-surface font-label-caps text-[10px] border border-surface-container-highest">ACTIVE</span>
+</div>
+<div class="space-y-2 font-metadata text-[11px] text-on-surface-variant">
+<div class="flex justify-between">
+<span class="">CAPACITY:</span> <span class="text-on-surface">3/5</span>
+</div>
+<div class="flex justify-between">
+<span class="">EMP CHARGE:</span> <span class="text-on-surface">100% [READY]</span>
+</div>
+<div class="flex justify-between">
+<span class="">CORE TEMP:</span> <span class="text-on-surface">390K</span>
+</div>
+<div class="mt-3 text-on-surface-variant opacity-70 whitespace-pre">
+├── HULL:    [||||||||||] 95%
+├── SHIELDS: [||||||||| ] 90%
+└── WEAPONS: [|||||     ] 50%
+                                </div>
+</div>
+</div>
+<!-- Ship 3 -->
+<div class="border border-surface-container-highest bg-surface p-4">
+<div class="flex justify-between items-start mb-3 border-b border-surface-container-highest pb-3">
+<h4 class="font-metadata text-metadata text-error uppercase">Osiris</h4>
+<span class="px-2 py-0.5 bg-surface-container-high text-error font-label-caps text-[10px] border border-surface-container-highest">M.I.A</span>
+</div>
+<div class="space-y-2 font-metadata text-[11px] text-on-surface-variant opacity-50">
+<div class="flex justify-between">
+<span class="">CAPACITY:</span> <span class="">--/--</span>
+</div>
+<div class="flex justify-between">
+<span class="">EMP CHARGE:</span> <span class="text-error">OFFLINE</span>
+</div>
+<div class="flex justify-between">
+<span class="">LAST SIGNAL:</span> <span class="">42 HOURS AGO</span>
+</div>
+<div class="mt-3 text-on-surface-variant whitespace-pre">
+├── HULL:    [          ] 0%
+├── SHIELDS: [          ] 0%
+└── WEAPONS: [          ] 0%
+                                </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="fixed bottom-0 left-0 md:left-64 right-0 z-30 flex justify-between items-center px-4 py-2 border-t border-surface-container-highest bg-surface dark:bg-surface">
+<div class="font-label-caps text-[10px] text-on-surface-variant opacity-50">
+            (C) 1999 METACORTEX CORP // KERNEL_ERR: 0x004F
+        </div>
+<div class="flex gap-4">
+<a class="font-label-caps text-[10px] text-on-surface-variant opacity-50 hover:text-on-surface transition-colors" href="#">MANUAL</a>
+<a class="font-label-caps text-[10px] text-on-surface-variant opacity-50 hover:text-on-surface transition-colors" href="#">ROOT_SHELL</a>
+<a class="font-label-caps text-[10px] text-on-surface-variant opacity-50 hover:text-on-surface transition-colors" href="#">DUMP</a>
+</div>
+</footer>
+</body></html>

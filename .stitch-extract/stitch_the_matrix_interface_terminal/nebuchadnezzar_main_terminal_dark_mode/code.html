@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Matrix OS v4.0.2 - Terminal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-error-container": "#ffdad6",
+                "on-secondary-fixed": "#141e18",
+                "inverse-primary": "#006e27",
+                "on-secondary-container": "#b0bbb2",
+                "on-primary-fixed": "#002107",
+                "primary-fixed-dim": "#00e55b",
+                "tertiary-fixed-dim": "#c8c6c8",
+                "secondary-fixed-dim": "#bec9c0",
+                "on-secondary": "#28332c",
+                "primary": "#edffe8",
+                "on-primary-fixed-variant": "#00531b",
+                "surface-variant": "#2d372c",
+                "on-surface-variant": "#b9ccb5",
+                "secondary-container": "#414c45",
+                "inverse-surface": "#dae6d5",
+                "background": "#000000",
+                "on-tertiary-container": "#626163",
+                "surface-container-high": "#222d22",
+                "on-secondary-fixed-variant": "#3f4942",
+                "surface-container-low": "#141e14",
+                "outline-variant": "#3b4b3a",
+                "primary-fixed": "#6bff83",
+                "error-container": "#93000a",
+                "surface-container-lowest": "#071007",
+                "tertiary": "#fcf9fc",
+                "on-tertiary-fixed": "#1b1b1d",
+                "on-primary-container": "#007128",
+                "surface-dim": "#0c160c",
+                "on-surface": "#dae6d5",
+                "error": "#ffb4ab",
+                "outline": "#849581",
+                "on-error": "#690005",
+                "on-background": "#dae6d5",
+                "surface-tint": "#00e55b",
+                "on-tertiary": "#303032",
+                "surface-container-highest": "#2d372c",
+                "secondary-fixed": "#dae5dc",
+                "on-tertiary-fixed-variant": "#474649",
+                "secondary": "#bec9c0",
+                "surface-bright": "#313c30",
+                "tertiary-fixed": "#e4e2e4",
+                "surface": "#000000",
+                "tertiary-container": "#dfdddf",
+                "surface-container": "#182218",
+                "inverse-on-surface": "#293328",
+                "primary-container": "#00ff66",
+                "on-primary": "#003911"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "gutter": "16px",
+                "container-margin": "24px",
+                "unit": "4px",
+                "panel-padding": "12px",
+                "margin": "24px",
+                "container-max": "1440px"
+        },
+        "fontFamily": {
+                "metadata": [
+                        "JetBrains Mono"
+                ],
+                "headline-md": [
+                        "Space Grotesk"
+                ],
+                "headline-lg": [
+                        "Space Grotesk"
+                ],
+                "body-md": [
+                        "JetBrains Mono"
+                ],
+                "body-lg": [
+                        "JetBrains Mono"
+                ],
+                "label-caps": [
+                        "Courier Prime"
+                ],
+                "code-sm": [
+                        "JetBrains Mono"
+                ],
+                "label-xs": [
+                        "JetBrains Mono"
+                ]
+        },
+        "fontSize": {
+                "metadata": [
+                        "10px",
+                        {
+                                "lineHeight": "1",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "1.2",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "1.2",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-md": [
+                        "14px",
+                        {
+                                "lineHeight": "1.5",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-lg": [
+                        "16px",
+                        {
+                                "lineHeight": "1.5",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-caps": [
+                        "12px",
+                        {
+                                "lineHeight": "1",
+                                "letterSpacing": "0.1em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "code-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "1.4",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-xs": [
+                        "10px",
+                        {
+                                "lineHeight": "1.0",
+                                "letterSpacing": "0.2em",
+                                "fontWeight": "500"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        /* CRT Scanline Effect */
+        .crt::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        .crt-flicker {
+            animation: flicker 0.15s infinite;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.95; }
+            10% { opacity: 0.85; }
+            20% { opacity: 0.95; }
+            30% { opacity: 1; }
+            40% { opacity: 0.9; }
+            50% { opacity: 1; }
+            60% { opacity: 0.95; }
+            70% { opacity: 0.9; }
+            80% { opacity: 1; }
+            90% { opacity: 0.95; }
+            100% { opacity: 1; }
+        }
+
+        /* Matrix Rain Background Placeholder */
+        .matrix-bg {
+            background-color: #000000;
+        }
+
+        /* Terminal Window Panel */
+        .term-panel {
+            border: 1px solid theme('colors.outline-variant');
+            background: #121212;
+        }
+        
+        .term-header {
+            background: #1a1a1a;
+            border-bottom: 1px solid theme('colors.outline-variant');
+        }
+
+        /* Mechanical Button */
+        .mech-btn {
+            background: #1a1a1a;
+            border: 1px solid theme('colors.outline-variant');
+            color: theme('colors.primary-fixed-dim');
+            transition: all 0.1s ease-in-out;
+            cursor: crosshair;
+        }
+        .mech-btn:hover {
+            background: #2a2a2a;
+            color: theme('colors.primary-fixed-dim');
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000000;
+            border-left: 1px solid theme('colors.outline-variant');
+        }
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.outline-variant');
+            opacity: 0.5;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: theme('colors.primary-fixed-dim');
+        }
+        ::-webkit-scrollbar-corner {
+            background: #000000;
+        }
+      </style>
+</head>
+<body class="bg-black text-primary-fixed-dim font-body-md h-screen overflow-hidden matrix-bg crt crt-flicker flex flex-col cursor-crosshair select-none relative">
+<!-- Top Navigation Bar (Shared Component) -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-margin h-14 border-b border-outline-variant bg-black dark:bg-black">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md text-primary-fixed-dim uppercase italic font-bold tracking-widest">MATRIX_OS_v4.0.2</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary-fixed-dim hover:text-primary-container cursor-pointer transition-colors" data-icon="terminal">terminal</span>
+<span class="material-symbols-outlined text-primary-fixed-dim hover:text-primary-container cursor-pointer transition-colors" data-icon="settings_input_component">settings_input_component</span>
+<span class="material-symbols-outlined text-primary-fixed-dim hover:text-primary-container cursor-pointer transition-colors" data-icon="memory">memory</span>
+</div>
+<div class="flex items-center border border-outline-variant bg-black px-2 py-1">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-sm mr-2">search</span>
+<input class="bg-transparent border-none text-primary-fixed-dim font-code-sm text-code-sm focus:ring-0 p-0 w-32 placeholder:text-tertiary-fixed-dim/50" placeholder="Search..." type="text"/>
+</div>
+</div>
+</nav>
+<!-- Side Navigation Bar (Shared Component) -->
+<aside class="fixed left-0 top-14 bottom-0 w-64 z-40 flex flex-col border-r border-outline-variant bg-black dark:bg-black">
+<div class="p-4 border-b border-outline-variant">
+<div class="text-primary-fixed-dim font-bold text-sm tracking-widest">NODE_01</div>
+<div class="text-label-xs font-label-xs text-tertiary-fixed-dim mt-1 opacity-70">COORD: 34.0522 N</div>
+</div>
+<div class="flex-1 overflow-y-auto py-2">
+<a class="bg-[#1a1a1a] text-primary-fixed-dim border-l-4 border-primary-fixed-dim flex items-center p-2 font-code-sm text-code-sm uppercase translate-x-1 duration-100 transition-all" href="#">
+<span class="material-symbols-outlined mr-3 text-lg" data-icon="fingerprint">fingerprint</span>
+                AGENT_ID
+            </a>
+<a class="text-tertiary-fixed-dim flex items-center p-2 opacity-60 font-code-sm text-code-sm uppercase hover:bg-[#1a1a1a] hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined mr-3 text-lg" data-icon="encrypted">encrypted</span>
+                SEC_CLEARANCE
+            </a>
+<a class="text-tertiary-fixed-dim flex items-center p-2 opacity-60 font-code-sm text-code-sm uppercase hover:bg-[#1a1a1a] hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined mr-3 text-lg" data-icon="verified_user">verified_user</span>
+                SYS_INTEGRITY
+            </a>
+<a class="text-tertiary-fixed-dim flex items-center p-2 opacity-60 font-code-sm text-code-sm uppercase hover:bg-[#1a1a1a] hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined mr-3 text-lg" data-icon="settings_ethernet">settings_ethernet</span>
+                NET_TRAFFIC
+            </a>
+<a class="text-tertiary-fixed-dim flex items-center p-2 opacity-60 font-code-sm text-code-sm uppercase hover:bg-[#1a1a1a] hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined mr-3 text-lg" data-icon="thermostat">thermostat</span>
+                CORE_TEMP
+            </a>
+</div>
+<div class="p-4 border-t border-outline-variant">
+<button class="w-full mech-btn py-2 px-4 font-code-sm text-code-sm uppercase mb-4">PURGE_CACHE</button>
+<div class="flex flex-col gap-2">
+<a class="text-tertiary-fixed-dim flex items-center opacity-60 font-code-sm text-code-sm uppercase hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined mr-2 text-sm" data-icon="logout">logout</span> LOGOUT
+                </a>
+<a class="text-tertiary-fixed-dim flex items-center opacity-60 font-code-sm text-code-sm uppercase hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined mr-2 text-sm" data-icon="restart_alt">restart_alt</span> REBOOT
+                </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 mt-14 mb-8 p-gutter flex-1 overflow-y-auto z-10 relative">
+<div class="max-w-container-max mx-auto h-full flex flex-col gap-gutter">
+<!-- Hero / Main Terminal -->
+<section class="term-panel flex flex-col h-1/3 min-h-[250px]">
+<div class="term-header px-2 py-1 flex justify-between items-center text-label-xs font-label-xs text-tertiary-fixed-dim">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[12px]">dns</span>
+<span>MAIN_TERMINAL // NEBUCHADNEZZAR_OS</span>
+</div>
+<div class="flex gap-2">
+<span class="cursor-pointer hover:text-primary-fixed-dim">[ _ ]</span>
+<span class="cursor-pointer hover:text-primary-fixed-dim">[ # ]</span>
+<span class="cursor-pointer hover:text-primary-fixed-dim">[ X ]</span>
+</div>
+</div>
+<div class="p-margin flex-1 flex flex-col justify-center items-center relative overflow-hidden bg-black">
+<div class="absolute top-2 left-2 text-label-xs font-label-xs text-tertiary-fixed-dim opacity-50 font-mono">
+                        SYS.BOOT.SEQ... OK<br/>
+                        MEM.ALLOC... 0x4F8A<br/>
+                        NET.LINK... ESTABLISHED
+                    </div>
+<h1 class="font-headline-lg text-headline-lg text-primary-fixed-dim mb-2 tracking-[0.2em] text-center uppercase z-10">
+                        ENTER THE MATRIX
+                    </h1>
+<div class="font-code-sm text-code-sm text-primary-fixed-dim/80 mb-8 h-6 flex items-center z-10">
+<span class="mr-2">&gt;</span>
+<span class="inline-block" id="typewriter">Wake up, Neo...</span>
+<span class="animate-pulse inline-block w-2 h-4 bg-primary-fixed-dim ml-1"></span>
+</div>
+<div class="flex gap-4 z-10">
+<button class="mech-btn px-6 py-2 font-code-sm text-code-sm uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">wifi_tethering</span>
+                            INITIALIZE CONNECTION
+                        </button>
+<button class="mech-btn px-6 py-2 font-code-sm text-code-sm uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">database</span>
+                            ACCESS DATABASE
+                        </button>
+</div>
+</div>
+</section>
+<!-- Grid Layout -->
+<div class="grid grid-cols-12 gap-gutter flex-1">
+<!-- Agent ID Panel (Left) -->
+<section class="col-span-12 lg:col-span-4 term-panel flex flex-col">
+<div class="term-header px-2 py-1 flex justify-between items-center text-label-xs font-label-xs text-tertiary-fixed-dim">
+<span>SYS.SEC // AGENT_PROFILE</span>
+</div>
+<div class="p-4 flex-1 bg-black flex flex-col">
+<!-- ID Card inspired by IMAGE_5 -->
+<div class="border 2px solid theme('colors.outline-variant') p-1 rounded-sm bg-black relative flex-1 flex flex-col">
+<div class="flex gap-4 mb-4">
+<div class="w-1/3 bg-[#111] border border-outline-variant aspect-[3/4] relative overflow-hidden">
+<img alt="Agent Image" class="w-full h-full object-cover filter grayscale sepia opacity-80 mix-blend-screen" data-alt="A portrait of Agent Smith from The Matrix. He is wearing a crisp black suit, white shirt, and black tie. He has a stern, unemotional expression, short receding dark hair, and an earpiece. The background is a plain, sickly green-tinted wall typical of the Matrix aesthetic. Lighting is harsh and overhead." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVg4PvW0mJi9ddhA3kZRNrf1VxvoMeREZRZFqxLwroEYPd3JUfcgd3kW_p8gdVNO7qeQqfaa-GNr7TRQg0cX4u3tVAMzevZtV-EAHi1vhULQkzmdi9DxWqvZy5su_-yUPSr2arpITSIYOofvFN3o-cFM-q7QNO4Uw2qr1PPVrGVVwIeQ8u7UHxyObB0kDGPAnBypB_Ly6kUR2UhSbBxph-zHUFSlHxLj2rcPmy1CtbNxEt0DYN7iYeN1J03OcqhbAFOm-qGUDe--XX"/>
+<div class="absolute inset-0 bg-primary-fixed-dim/10 mix-blend-overlay pointer-events-none"></div>
+</div>
+<div class="w-2/3 flex flex-col justify-between">
+<div class="text-primary-fixed-dim font-headline-md tracking-widest text-center border-b border-outline-variant pb-1 mb-2">
+                                        THE MATRIX
+                                    </div>
+<div class="font-label-xs text-label-xs text-primary-fixed-dim text-center uppercase mb-2">
+                                        Systems Administration Protection Level Program
+                                    </div>
+<div class="font-code-sm text-code-sm text-primary-fixed-dim text-center leading-tight mb-2 opacity-90">
+                                        ACCESS GRANTED FOR ALL SYSTEMS, WORLDWIDE GLOBAL PROTECTION AUTHORITIES
+                                    </div>
+</div>
+</div>
+<div class="font-label-xs text-label-xs text-primary-fixed-dim uppercase border-b border-outline-variant pb-1 mb-2 tracking-widest">
+                                Multiple Corridor Jurisdiction
+                            </div>
+<div class="grid grid-cols-2 gap-x-4 gap-y-2 font-code-sm text-code-sm text-primary-fixed-dim flex-1">
+<div class="border-b border-outline-variant pb-1">
+<span class="opacity-60 text-label-xs block mb-1">NAME:</span>
+<span>Smith</span>
+</div>
+<div class="border-b border-outline-variant pb-1">
+<span class="opacity-60 text-label-xs block mb-1">PRIME DIRECTIVE:</span>
+<span>System Security</span>
+</div>
+<div class="border-b border-outline-variant pb-1">
+<span class="opacity-60 text-label-xs block mb-1">RANK:</span>
+<span>Agent</span>
+</div>
+<div class="border-b border-outline-variant pb-1">
+<span class="opacity-60 text-label-xs block mb-1">PROGRAM:</span>
+<span>Field Operative</span>
+</div>
+<div class="border-b border-outline-variant pb-1">
+<span class="opacity-60 text-label-xs block mb-1">BODY POSSESSION:</span>
+<span>Authorization</span>
+</div>
+<div class="border-b border-outline-variant pb-1">
+<span class="opacity-60 text-label-xs block mb-1">APPROVAL BY:</span>
+<span>The Architect</span>
+</div>
+</div>
+<div class="mt-4 pt-2 border-t border-outline-variant flex justify-between items-end">
+<div class="font-code-sm text-code-sm text-primary-fixed-dim flex items-center">
+<span class="opacity-60 text-label-xs mr-2">SIGNATURE:</span>
+<span class="italic font-serif text-lg">Smith</span>
+</div>
+</div>
+<div class="text-[8px] text-center mt-1 text-primary-fixed-dim/50 uppercase tracking-widest">
+                                THIS CARD MUST BE REPORTED IMMEDIATELY IF MISSING
+                            </div>
+</div>
+</div>
+</section>
+<!-- Middle Column: Telemetry & Logs -->
+<section class="col-span-12 lg:col-span-5 flex flex-col gap-gutter">
+<!-- Coordinates -->
+<div class="term-panel h-1/3 flex flex-col">
+<div class="term-header px-2 py-1 flex justify-between items-center text-label-xs font-label-xs text-tertiary-fixed-dim">
+<span>NAV.SYS // COORD_TRACKER</span>
+<span class="animate-pulse text-error">LIVE</span>
+</div>
+<div class="p-4 bg-black flex-1 flex flex-col justify-center">
+<div class="flex justify-between items-end border-b border-outline-variant pb-2 mb-4">
+<div>
+<div class="font-label-xs text-label-xs text-tertiary-fixed-dim uppercase mb-1">Target: Machine City</div>
+<div class="font-headline-md text-primary-fixed-dim font-mono">01.1011.001</div>
+</div>
+<div class="text-right">
+<div class="font-label-xs text-label-xs text-tertiary-fixed-dim uppercase mb-1">Distance</div>
+<div class="font-code-sm text-primary-fixed-dim">ERR: NULL_VAL</div>
+</div>
+</div>
+<div class="flex gap-2 h-8">
+<div class="flex-1 bg-[#111] border border-outline-variant relative overflow-hidden">
+<div class="absolute top-0 bottom-0 left-0 bg-primary-fixed-dim/30 w-3/4"></div>
+<div class="absolute top-0 bottom-0 left-0 bg-primary-fixed w-[72%] border-r border-primary-fixed-dim"></div>
+<div class="absolute inset-0 flex items-center px-2 font-label-xs text-label-xs text-black mix-blend-difference">SIGNAL_STR: 72%</div>
+</div>
+</div>
+</div>
+</div>
+<!-- System Integrity Log -->
+<div class="term-panel flex-1 flex flex-col">
+<div class="term-header px-2 py-1 flex justify-between items-center text-label-xs font-label-xs text-tertiary-fixed-dim">
+<span>SYS.LOG // INTEGRITY_CHECK</span>
+<span class="material-symbols-outlined text-[12px] cursor-pointer hover:text-primary-fixed-dim">filter_list</span>
+</div>
+<div class="p-2 bg-black flex-1 overflow-hidden font-code-sm text-code-sm text-tertiary-fixed-dim leading-relaxed">
+<div class="h-full overflow-y-auto pr-2 pb-2">
+<div class="text-primary-fixed-dim mb-1">&gt;&gt; INIT DIAGNOSTIC...</div>
+<div class="mb-1">0x00A1: Checking sector 4... OK</div>
+<div class="mb-1">0x00A2: Checking sector 5... OK</div>
+<div class="text-error mb-1">0x00A3: ANOMALY DETECTED IN SECTOR 6</div>
+<div class="ml-4 mb-1 border-l border-error/50 pl-2 text-tertiary-fixed-dim">
+                                    WARN: Unauthorized access attempt.<br/>
+                                    SRC: 192.168.1.104<br/>
+                                    ACT: Trace routed... Failed.
+                                </div>
+<div class="mb-1">0x00A4: Re-routing power to shields... OK</div>
+<div class="mb-1">0x00A5: Core temp stable at 38C.</div>
+<div class="text-primary-fixed-dim mb-1">&gt;&gt; AWAITING INPUT_</div>
+<!-- Filler text to show scrolling -->
+<div class="opacity-50 mt-4">
+                                    0x00A6: Background process 102 running.<br/>
+                                    0x00A7: Cache cleared.<br/>
+                                    0x00A8: Syncing time server... OK<br/>
+                                    0x00A9: Idle.<br/>
+                                    0x00AA: Idle.<br/>
+                                    0x00AB: Network ping: 12ms.<br/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column: Visuals & Stats -->
+<section class="col-span-12 lg:col-span-3 flex flex-col gap-gutter">
+<!-- HUD Widget -->
+<div class="term-panel h-48 flex flex-col">
+<div class="term-header px-2 py-1 flex justify-between items-center text-label-xs font-label-xs text-tertiary-fixed-dim">
+<span>HUD // VITALS</span>
+</div>
+<div class="p-4 bg-black flex-1 flex flex-col justify-between">
+<div>
+<div class="flex justify-between font-label-xs text-label-xs text-tertiary-fixed-dim mb-1">
+<span>CPU LOAD</span>
+<span>89%</span>
+</div>
+<div class="h-2 bg-[#1a1a1a] border border-outline-variant w-full">
+<div class="h-full bg-error w-[89%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-xs text-label-xs text-tertiary-fixed-dim mb-1">
+<span>MEM USAGE</span>
+<span>45%</span>
+</div>
+<div class="h-2 bg-[#1a1a1a] border border-outline-variant w-full">
+<div class="h-full bg-primary-fixed-dim w-[45%]"></div>
+</div>
+</div>
+<div class="grid grid-cols-4 gap-1 h-8 mt-2 items-end">
+<div class="bg-primary-fixed-dim/20 h-full border border-outline-variant"></div>
+<div class="bg-primary-fixed-dim/40 h-[60%] border border-outline-variant"></div>
+<div class="bg-primary-fixed-dim/60 h-[80%] border border-outline-variant"></div>
+<div class="bg-primary-fixed-dim h-[40%] border border-outline-variant"></div>
+</div>
+</div>
+</div>
+<!-- Directory Tree -->
+<div class="term-panel flex-1 flex flex-col">
+<div class="term-header px-2 py-1 flex justify-between items-center text-label-xs font-label-xs text-tertiary-fixed-dim">
+<span>DIR // ROOT / SYS</span>
+</div>
+<div class="p-4 bg-black flex-1 font-code-sm text-code-sm text-primary-fixed-dim/80 whitespace-pre overflow-x-auto">
+SYS
+├── KERNEL
+│   ├── boot.sys
+│   └── mem_mgr.dll
+├── SEC
+│   ├── firewall.conf
+│   └── keys/
+│       ├── pub.pem
+│       └── <span class="text-error">priv_compromised.key</span>
+└── USR
+    ├── nebuchadnezzar/
+    │   ├── logs/
+    │   └── config.ini
+    └── <span class="text-primary-fixed-dim">ZION_UPLINK.exe</span>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="fixed bottom-0 left-64 right-0 z-30 flex justify-between items-center px-4 py-1 border-t border-outline-variant bg-black dark:bg-black h-8">
+<span class="font-label-xs text-label-xs text-tertiary-fixed-dim opacity-50">(C) 1999 METACORTEX CORP // KERNEL_ERR: 0x004F</span>
+<div class="flex gap-4">
+<a class="font-label-xs text-label-xs text-tertiary-fixed-dim opacity-50 hover:text-primary-fixed-dim transition-colors" href="#">MANUAL</a>
+<a class="font-label-xs text-label-xs text-tertiary-fixed-dim opacity-50 hover:text-primary-fixed-dim transition-colors" href="#">ROOT_SHELL</a>
+<a class="font-label-xs text-label-xs text-tertiary-fixed-dim opacity-50 hover:text-primary-fixed-dim transition-colors" href="#">DUMP</a>
+</div>
+</footer>
+<script>
+        // Simple typewriter effect for hero text
+        const text = "Wake up, Neo...";
+        const element = document.getElementById('typewriter');
+        let index = 0;
+
+        function type() {
+            if (index < text.length) {
+                element.innerHTML = text.substring(0, index + 1);
+                index++;
+                setTimeout(type, 150 + Math.random() * 100);
+            }
+        }
+
+        // Delay start slightly
+        setTimeout(() => {
+            element.innerHTML = "";
+            type();
+        }, 1000);
+    </script>
+</body></html>
