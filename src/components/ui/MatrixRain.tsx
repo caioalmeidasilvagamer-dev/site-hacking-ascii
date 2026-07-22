@@ -4,15 +4,17 @@ interface MatrixRainProps {
   opacity?: number; // 0 a 1, densidade visual do efeito
   fontSize?: number;
   color?: string;
+  headColor?: string;
 }
 
 const CHARS =
   "アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン0123456789";
 
 export function MatrixRain({
-  opacity = 0.12,
+  opacity = 0.15,
   fontSize = 16,
-  color = "#00ff41",
+  color = "rgba(0, 255, 102, 0.65)",
+  headColor = "#c8ffb0",
 }: MatrixRainProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -42,11 +44,10 @@ export function MatrixRain({
     function draw() {
       if (!running || !canvas || !ctx) return;
 
-      // rastro (fade do frame anterior)
-      ctx.fillStyle = "rgba(0, 0, 0, 0.06)";
+      // rastro (fade do frame anterior) — 0.08 acalma a chuva visualmente
+      ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = color;
       ctx.font = `${fontSize}px monospace`;
 
       for (let i = 0; i < drops.length; i++) {
@@ -54,7 +55,13 @@ export function MatrixRain({
         const x = i * fontSize;
         const y = drops[i] * fontSize;
 
+        // Cabeça do rastro: verde limão brilhante
+        ctx.fillStyle = headColor;
         ctx.fillText(char, x, y);
+
+        // Corpo do rastro: verde Matrix vívido
+        ctx.fillStyle = color;
+        ctx.fillText(char, x, y - fontSize);
 
         if (y > canvas.height && Math.random() > 0.975) {
           drops[i] = 0;
@@ -91,7 +98,7 @@ export function MatrixRain({
       window.removeEventListener("resize", handleResize);
       document.removeEventListener("visibilitychange", handleVisibility);
     };
-  }, [fontSize, color]);
+  }, [fontSize, color, headColor]);
 
   return (
     <canvas

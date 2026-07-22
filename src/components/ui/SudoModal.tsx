@@ -125,10 +125,10 @@ export function SudoModal({ onComplete }: SudoModalProps) {
         {/* Linhas do Log de Contratação */}
         <div style={{ fontSize: 13, lineHeight: 1.8 }}>
           <div style={{ color: "#60ff85" }}>&gt; USER: root (superadmin)</div>
-          <div style={{ color: "#00ff41" }}>&gt; COMMAND: sudo hire caio</div>
-          <div style={{ color: "rgba(0, 255, 65, 0.8)" }}>&gt; ANALYZING SKILLS... 100% MATCH</div>
-          <div style={{ color: "#fff", textShadow: "0 0 10px #00ff41", marginTop: "8px", fontWeight: "bold" }}>
-            🚀 ACESSO CONCEDIDO: MODO CONTRATAÇÃO ATIVADO!
+          <div style={{ color: "#00ff66" }}>&gt; COMMAND: sudo hire operator</div>
+          <div style={{ color: "rgba(0, 255, 102, 0.8)" }}>&gt; ANALYZING CLEARANCE... LEVEL 4 CONFIRMED</div>
+          <div style={{ color: "#00ff66", marginTop: "8px", fontWeight: "bold" }}>
+            ACCESS GRANTED: ZION NETWORK RECRUITMENT MODE ACTIVE
           </div>
           <div style={{ color: "rgba(0, 255, 65, 0.7)", marginTop: "12px", fontSize: 12 }}>
             redirecionando para o canal direto de contato...

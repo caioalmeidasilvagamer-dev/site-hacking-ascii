@@ -10,27 +10,13 @@ interface TypedLineProps {
 export function TypedLine({ prompt = "$", children, style, dim = false }: TypedLineProps) {
   return (
     <p
-      style={{
-        display: "flex",
-        alignItems: "flex-start",
-        gap: "10px",
-        fontSize: "0.85rem",
-        lineHeight: 1.7,
-        margin: 0,
-        ...style,
-      }}
+      style={style}
+      className="flex items-start gap-2.5 text-xs sm:text-sm leading-relaxed my-0 font-mono"
     >
-      <span
-        style={{
-          color: "rgba(0, 255, 65, 0.45)",
-          userSelect: "none",
-          flexShrink: 0,
-          fontWeight: "bold",
-        }}
-      >
+      <span className="text-signal select-none shrink-0 font-bold font-label">
         {prompt}
       </span>
-      <span style={{ color: dim ? "rgba(0, 255, 65, 0.55)" : "rgba(0, 255, 65, 0.90)" }}>
+      <span className={dim ? "text-on-surface-variant/70" : "text-on-surface"}>
         {children}
       </span>
     </p>

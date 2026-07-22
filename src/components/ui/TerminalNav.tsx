@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import { SudoModal } from "./SudoModal";
 
 // ── Configurações Globais ────────────────────────────────────────────────────
-export const CONTACT_LINK = "https://wa.me/5500000000000"; // Substitua pelo seu link
+export const CONTACT_LINK = "#"; // Zion secure channel — not publicly exposed
 
 export interface SectionItem {
   id: string;
@@ -12,6 +12,7 @@ export interface SectionItem {
 interface TerminalNavProps {
   start: boolean;
   sections?: SectionItem[];
+  onTruthTxt?: () => void;
 }
 
 interface HistoryEntry {
@@ -20,20 +21,25 @@ interface HistoryEntry {
   suggestedCmd?: string;
 }
 
-const VALID_COMMANDS = ["ajuda", "sobre", "projetos", "contato", "whoami", "limpar"];
-
-const PLACEHOLDERS = [
-  "digite 'ajuda'...",
-  "tente 'projetos'...",
-  "ou 'sobre'...",
-  "descubra 'whoami'...",
-  "explore 'contato'...",
+const VALID_COMMANDS = [
+  "help",
+  "synopsis",
+  "cast",
+  "showtimes",
+  "homemedia",
+  "newsletter",
+  "whoami",
+  "clear",
+  "cat truth.txt",
 ];
 
-// NOTA DE PERSISTÊNCIA FUTURA:
-// Para salvar o histórico entre sessões, inicialize com:
-// const [cmdHistory, setCmdHistory] = useState<string[]>(() => JSON.parse(localStorage.getItem("term_history") || "[]"));
-// E sincronize: useEffect(() => { localStorage.setItem("term_history", JSON.stringify(cmdHistory)); }, [cmdHistory]);
+const PLACEHOLDERS = [
+  "type 'help' to begin...",
+  "try 'synopsis'...",
+  "or 'cast'...",
+  "discover 'showtimes'...",
+  "try 'cat truth.txt'...",
+];
 
 // ── Utilitário: Distância de Levenshtein (sem lib externa) ───────────────────
 function levenshteinDistance(a: string, b: string): number {
@@ -56,10 +62,13 @@ function levenshteinDistance(a: string, b: string): number {
 export function TerminalNav({
   start,
   sections = [
-    { id: "sobre", label: "sobre" },
-    { id: "projetos", label: "projetos" },
-    { id: "contato", label: "contato" },
+    { id: "synopsis",   label: "synopsis" },
+    { id: "cast",       label: "characters" },
+    { id: "showtimes",  label: "showtimes" },
+    { id: "homemedia",  label: "vhs / dvd" },
+    { id: "newsletter", label: "newsletter" },
   ],
+  onTruthTxt,
 }: TerminalNavProps) {
 
   // ── Estado ──────────────────────────────────────────────────────────────────
@@ -85,7 +94,7 @@ export function TerminalNav({
   useEffect(() => {
     if (!start) return;
 
-    const msg = "bem-vindo. digite 'ajuda' pra começar_";
+    const msg = "system::anomaly // type 'help' for movie portal commands_";
     let idx = 0;
 
     const timer = setInterval(() => {
@@ -139,32 +148,31 @@ export function TerminalNav({
 
     const entries: HistoryEntry[] = [{ type: "command", content: `> ${cmd}` }];
 
-    // A) Comando secreto: sudo hire caio
-    if (
-      norm === "sudo hire caio" ||
-      norm === "sudo hire" ||
-      norm === "hire caio"
-    ) {
-      setShowSudoModal(true);
+    // A) Easter egg: cat truth.txt
+    if (norm === "cat truth.txt" || norm === "cat truth" || norm === "truth.txt") {
       entries.push({
         type: "system",
-        content: "🚀 ACESSO ROOT CONCEDIDO: MODO CONTRATAÇÃO ATIVADO!",
+        content: ">> DECRYPTING /root/truth.txt ... ACCESS GRANTED",
       });
       setHistory((prev) => [...prev, ...entries]);
+      setTimeout(() => onTruthTxt?.(), 600);
       return;
     }
 
-    // B) ajuda
-    if (norm === "ajuda" || norm === "help") {
+    // B) help
+    if (norm === "help" || norm === "ajuda") {
       entries.push({
         type: "response",
         content:
-          "comandos disponíveis:\n" +
-          "  • sobre     — resumo sobre mim e objetivos\n" +
-          "  • projetos  — portfólio de cases de alta conversão\n" +
-          "  • contato   — canais diretos de comunicação\n" +
-          "  • whoami    — quem é caio_dev?\n" +
-          "  • limpar    — limpa a tela do terminal",
+          "MOVIE PORTAL COMMANDS:\n" +
+          "  • synopsis    — theatrical story & technical specifications\n" +
+          "  • cast        — featured characters & cast directory\n" +
+          "  • showtimes   — advance tickets & theater listings\n" +
+          "  • homemedia   — VHS & 2-disc collector's DVD release\n" +
+          "  • newsletter  — join resistance mailing list\n" +
+          "  • whoami      — identify current network operator\n" +
+          "  • cat truth.txt — [CLASSIFIED FILE]\n" +
+          "  • clear       — purge terminal output",
       });
     }
 
@@ -173,33 +181,42 @@ export function TerminalNav({
       entries.push({
         type: "response",
         content:
-          "caio_dev | dev especialista em landing pages de alta conversão\n" +
-          "& interfaces ascii/futuristas. focado em performance,\n" +
-          "animações fluidas e experiência do usuário.",
+          "THEATRICAL NETWORK VISITOR // OPERATOR NODE\n" +
+          "CLEARANCE: TICKET HOLDER // LEVEL 4\n" +
+          "STATUS: CONFIRMED FOR OCTOBER 31 RELEASE\n" +
+          "TIP: The question is not who you are. It is when.",
       });
     }
 
-    // D) limpar / clear
-    else if (norm === "limpar" || norm === "clear") {
+    // D) clear
+    else if (norm === "clear" || norm === "limpar") {
       setHistory([]);
       return;
     }
 
-    // E) Navegação por seção
-    else if (sections.some((s) => s.id === norm) || ["sobre", "projetos", "contato"].includes(norm)) {
-      const el = document.getElementById(norm);
+    // E) Section navigation
+    else if (sections.some((s) => s.id === norm) || ["synopsis", "about", "cast", "characters", "showtimes", "tickets", "homemedia", "vhs", "dvd", "newsletter"].includes(norm)) {
+      const idMap: Record<string, string> = {
+        about: "synopsis",
+        characters: "cast",
+        tickets: "showtimes",
+        vhs: "homemedia",
+        dvd: "homemedia",
+      };
+      const targetId = idMap[norm] ?? norm;
+      const el = document.getElementById(targetId);
       if (el) {
-        entries.push({ type: "response", content: `> rolando até #${norm}...` });
+        entries.push({ type: "response", content: `>> ROUTING TO PORTAL SECTION: ${norm.toUpperCase()}...` });
         el.scrollIntoView({ behavior: "smooth" });
       } else {
         entries.push({
           type: "response",
-          content: `> acionando #${norm}... (seção ainda não implementada no layout)`,
+          content: `>> PORTAL SECTION #${norm} — NOT FOUND`,
         });
       }
     }
 
-    // F) Fuzzy match / erro amigável
+    // G) Fuzzy match / friendly error
     else {
       let closest = "";
       let minDist = Infinity;
@@ -211,13 +228,13 @@ export function TerminalNav({
       if (minDist <= 3 && closest) {
         entries.push({
           type: "suggestion",
-          content: `comando "${cmd}" não reconhecido. você quis dizer "${closest}"?`,
+          content: `>> COMMAND NOT FOUND: "${cmd}" — did you mean "${closest}"?`,
           suggestedCmd: closest,
         });
       } else {
         entries.push({
           type: "response",
-          content: `comando "${cmd}" não encontrado. digite 'ajuda' pra ver as opções.`,
+          content: `>> UNKNOWN COMMAND: "${cmd}" — type 'help' for valid commands.`,
         });
       }
     }
@@ -323,38 +340,37 @@ export function TerminalNav({
       `}</style>
 
       <div
+        className="bevel-raised"
         style={{
           width: "100%",
           maxWidth: "560px",
-          marginTop: "18px",
-          backgroundColor: "rgba(0, 5, 2, 0.82)",
-          backdropFilter: "blur(8px)",
-          padding: "20px 24px 16px",
-          borderRadius: "10px",
-          border: "1px solid rgba(0, 255, 65, 0.22)",
-          boxShadow: "0 0 40px rgba(0, 255, 65, 0.10), inset 0 0 40px rgba(0, 255, 65, 0.02)",
-          fontFamily: "'Courier New', Courier, monospace",
+          marginTop: "12px",
+          backgroundColor: "#0c160c",
+          padding: "16px 20px 14px",
+          fontFamily: "'JetBrains Mono', monospace",
           textAlign: "left",
           boxSizing: "border-box",
           pointerEvents: "auto",
         }}
       >
-        {/* ── Barra de título do terminal ── */}
+        {/* ── Barra de título do terminal (Monochrome Win98) ── */}
         <div
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "6px",
-            marginBottom: "14px",
-            paddingBottom: "10px",
-            borderBottom: "1px solid rgba(0, 255, 65, 0.12)",
+            justifyContent: "space-between",
+            marginBottom: "12px",
+            paddingBottom: "8px",
+            borderBottom: "1px border-outline-variant",
           }}
         >
-          <span style={{ width: 8, height: 8, borderRadius: "50%", background: "rgba(255,90,90,0.7)", display: "inline-block" }} />
-          <span style={{ width: 8, height: 8, borderRadius: "50%", background: "rgba(255,190,50,0.6)", display: "inline-block" }} />
-          <span style={{ width: 8, height: 8, borderRadius: "50%", background: "rgba(0,255,65,0.55)", display: "inline-block" }} />
-          <span style={{ marginLeft: "auto", fontSize: "0.7rem", color: "rgba(0,255,65,0.35)", letterSpacing: "0.1em" }}>
-            caio_dev — terminal v2.4
+          <div className="flex items-center gap-1.5 font-mono text-xs text-on-surface-variant/70 select-none">
+            <span>[ − ]</span>
+            <span>[ # ]</span>
+            <span>[ × ]</span>
+          </div>
+          <span style={{ fontSize: "0.7rem", color: "rgba(0,255,102,0.6)", letterSpacing: "0.1em" }}>
+            zion_mainframe — terminal v4.0.2
           </span>
         </div>
 
@@ -408,13 +424,11 @@ export function TerminalNav({
 
                 {entry.type === "system" && (
                   <div
+                    className="bevel-lowered"
                     style={{
-                      color: "#00ff41",
-                      backgroundColor: "rgba(0, 255, 65, 0.08)",
+                      color: "#00ff66",
                       padding: "5px 10px",
-                      borderRadius: "4px",
                       fontWeight: "bold",
-                      border: "1px solid rgba(0,255,65,0.3)",
                       fontSize: "0.79rem",
                     }}
                   >
@@ -425,9 +439,9 @@ export function TerminalNav({
                 {entry.type === "suggestion" && (
                   <div
                     style={{
-                      color: "rgba(0, 255, 65, 0.85)",
+                      color: "rgba(0, 255, 102, 0.85)",
                       paddingLeft: "10px",
-                      borderLeft: "2px solid rgba(0, 255, 65, 0.35)",
+                      borderLeft: "2px solid rgba(0, 255, 102, 0.35)",
                       display: "flex",
                       alignItems: "center",
                       flexWrap: "wrap",
@@ -436,20 +450,17 @@ export function TerminalNav({
                   >
                     <span>{entry.content}</span>
                     <button
-                      className="terminal-suggest-btn"
+                      className="bevel-button terminal-suggest-btn"
                       onClick={() => executeCommand(entry.suggestedCmd!)}
                       style={{
-                        background: "rgba(0, 255, 65, 0.10)",
-                        border: "1px solid rgba(0, 255, 65, 0.35)",
-                        color: "#00ff41",
-                        borderRadius: "4px",
+                        color: "#00ff66",
                         padding: "2px 8px",
                         fontSize: "0.75rem",
                         cursor: "pointer",
                         fontFamily: "inherit",
                       }}
                     >
-                      [ executar {entry.suggestedCmd} ]
+                      [ execute {entry.suggestedCmd} ]
                     </button>
                   </div>
                 )}
@@ -546,17 +557,14 @@ export function TerminalNav({
               gap: "7px",
             }}
           >
-            {sections.concat([{ id: "ajuda", label: "ajuda" }]).map((item) => (
+            {sections.concat([{ id: "help", label: "help" }]).map((item) => (
               <button
                 key={item.id}
-                className="terminal-chip"
+                className="bevel-button terminal-chip"
                 onClick={() => executeCommand(item.id)}
                 style={{
-                  background: "rgba(0,255,65,0.05)",
-                  border: "1px solid rgba(0,255,65,0.22)",
-                  color: "rgba(0,255,65,0.85)",
-                  borderRadius: "5px",
-                  padding: "4px 13px",
+                  color: "#00ff66",
+                  padding: "4px 12px",
                   fontSize: "0.76rem",
                   fontFamily: "inherit",
                   cursor: "pointer",
@@ -570,7 +578,7 @@ export function TerminalNav({
         )}
       </div>
 
-      {/* Easter Egg Modal: sudo hire caio */}
+      {/* Easter Egg Modal: sudo hire */}
       {showSudoModal && <SudoModal onComplete={handleSudoComplete} />}
     </>
   );

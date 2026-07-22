@@ -15,6 +15,7 @@
   --color-signal-dim: #1a241e;
 
   --font-headline: "Space Grotesk", sans-serif;
+  --font-pixel: "VT323", "Press Start 2P", monospace;
   --font-mono: "JetBrains Mono", monospace;
   --font-label: "Courier Prime", monospace;
 
@@ -24,14 +25,96 @@
   --spacing-panel-padding: 12px;
 }
 
+/* 1. SHARP CORNERS — ZERO EXCEPTIONS (GLOBAL OVERRIDE) */
 *, *::before, *::after {
   box-sizing: border-box;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
 }
 
+/* 4. AUTHENTIC WINDOWS 98 BEVEL BORDERS */
+.bevel-raised {
+  border-style: solid;
+  border-width: 2px;
+  border-color: #3a4a3a #0a120a #0a120a #3a4a3a !important;
+}
+
+.bevel-lowered {
+  border-style: solid;
+  border-width: 2px;
+  border-color: #0a120a #3a4a3a #3a4a3a #0a120a !important;
+  background-color: #000000;
+}
+
+.bevel-button {
+  border-style: solid;
+  border-width: 2px;
+  border-color: #4a5a4a #0a120a #0a120a #4a5a4a !important;
+  background-color: #182218;
+  transition: none !important;
+}
+
+.bevel-button:active, .bevel-button:focus {
+  border-color: #0a120a #4a5a4a #4a5a4a #0a120a !important;
+}
+
+/* HARD GLOBAL RESET FOR BLACK BACKGROUND */
 html, body, #root {
   width: 100%;
   min-height: 100vh;
-  background: #000000;
+  background-color: #000000 !important;
   color: #dae6d5;
   font-family: "JetBrains Mono", monospace;
+  margin: 0;
+  padding: 0;
 }
+
+/* GLOBAL SCANLINE OVERLAY (~2.5% OPACITY) */
+body::after {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+  z-index: 99;
+  background-size: 100% 3px, 4px 100%;
+  pointer-events: none;
+  opacity: 0.035;
+}
+
+/* 3. MIRROR / GLITCH TRANSITION EFFECT (PURE CSS) */
+@keyframes mirrorGlitchAnim {
+  0% {
+    filter: none;
+    transform: none;
+  }
+  15% {
+    filter: drop-shadow(-4px 0 #ff0044) drop-shadow(4px 0 #00ffff);
+    transform: skewX(-1.5deg) scaleY(1.005);
+  }
+  35% {
+    filter: drop-shadow(5px 0 #00ff66) drop-shadow(-5px 0 #ff00ff);
+    transform: translate(-3px, 1px) skewX(2deg);
+  }
+  55% {
+    filter: drop-shadow(-3px 0 #ff0000) drop-shadow(3px 0 #0000ff);
+    transform: translate(2px, -1px);
+  }
+  75% {
+    filter: drop-shadow(2px 0 #00ff66);
+    transform: none;
+  }
+  100% {
+    filter: none;
+    transform: none;
+  }
+}
+
+.viewport-mirror-glitch {
+  animation: mirrorGlitchAnim 0.4s ease-in-out forwards !important;
+}
+

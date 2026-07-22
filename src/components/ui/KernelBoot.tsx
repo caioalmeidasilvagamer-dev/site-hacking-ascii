@@ -8,16 +8,16 @@ import { useEffect, useState, useRef } from "react";
 const TOTAL_MS = 3800; // Duração total da sequência de boot
 
 const BOOT_LINES = [
-  { text: "CAIO_DEV OS v2.4.1 [build 20250721]", delay: 0,    bold: true,  dim: false },
+  { text: "NEBUCHADNEZZAR_OS v4.0.2 [build 19991031]", delay: 0,    bold: true,  dim: false },
   { text: "──────────────────────────────────────────────────────", delay: 200,  bold: false, dim: true  },
-  { text: "[OK] carregando módulos do kernel...................",   delay: 500,  bold: false, dim: false, prefix: ">> " },
-  { text: "[OK] inicializando interface de rede...............",   delay: 950,  bold: false, dim: false, prefix: ">> " },
-  { text: "[OK] verificando integridade do sistema............",   delay: 1380, bold: false, dim: false, prefix: ">> " },
-  { text: "[OK] montando sistema de arquivos..................",   delay: 1800, bold: false, dim: false, prefix: ">> " },
-  { text: "[OK] criptografando canal seguro...................",   delay: 2220, bold: false, dim: false, prefix: ">> " },
-  { text: "[OK] conectando à matriz global....................",   delay: 2640, bold: false, dim: false, prefix: ">> " },
+  { text: "[OK] ZION uplink established.....................",     delay: 500,  bold: false, dim: false, prefix: ">> " },
+  { text: "[OK] Hull integrity check: 91%....................",    delay: 950,  bold: false, dim: false, prefix: ">> " },
+  { text: "[OK] EMP charge: 74% — within safe threshold....",    delay: 1380, bold: false, dim: false, prefix: ">> " },
+  { text: "[OK] Kernel cryptography: AES-256 active.........",   delay: 1800, bold: false, dim: false, prefix: ">> " },
+  { text: "[OK] Agent sweep: sector 6 monitored.............",   delay: 2220, bold: false, dim: false, prefix: ">> " },
+  { text: "[OK] Secure channel to Zion Mainframe: OPEN......",   delay: 2640, bold: false, dim: false, prefix: ">> " },
   { text: "──────────────────────────────────────────────────────", delay: 3050, bold: false, dim: true  },
-  { text: "sistema inicializado — acesso concedido.",             delay: 3300, bold: true,  dim: false },
+  { text: "SYSTEM INITIALIZED — ACCESS GRANTED — WELCOME OPERATOR", delay: 3300, bold: true,  dim: false },
 ] as const;
 
 const TOTAL_BLOCKS = 18;
