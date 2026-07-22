@@ -38,7 +38,7 @@ export function MovieFooter({ onReturnToPills }: MovieFooterProps) {
           <span className="font-label text-[8px] text-signal/60 uppercase tracking-widest">
             OFFICIAL WEBRING AFFILIATE NETWORK // 1999
           </span>
-          <div className="w-full max-w-[468px] h-14 bevel-raised overflow-hidden">
+          <div className="w-full max-w-[468px] h-24 bevel-raised overflow-hidden">
             <img
               src={webringBanner}
               alt="dark green webring affiliate banner"
