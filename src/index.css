@@ -84,6 +84,7 @@ body::after {
   background-size: 100% 3px, 4px 100%;
   pointer-events: none;
   opacity: 0.035;
+  will-change: transform;
 }
 
 /* 3. MIRROR / GLITCH TRANSITION EFFECT (PURE CSS) */

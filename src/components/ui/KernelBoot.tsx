@@ -5,19 +5,19 @@ import { useEffect, useState, useRef } from "react";
  * Exibe mensagens de log em sequência, barra de progresso e depois chama onComplete().
  */
 
-const TOTAL_MS = 3800; // Duração total da sequência de boot
+const TOTAL_MS = 2000; // Duração total da sequência de boot
 
 const BOOT_LINES = [
   { text: "NEBUCHADNEZZAR_OS v4.0.2 [build 19991031]", delay: 0,    bold: true,  dim: false },
-  { text: "──────────────────────────────────────────────────────", delay: 200,  bold: false, dim: true  },
-  { text: "[OK] ZION uplink established.....................",     delay: 500,  bold: false, dim: false, prefix: ">> " },
-  { text: "[OK] Hull integrity check: 91%....................",    delay: 950,  bold: false, dim: false, prefix: ">> " },
-  { text: "[OK] EMP charge: 74% — within safe threshold....",    delay: 1380, bold: false, dim: false, prefix: ">> " },
-  { text: "[OK] Kernel cryptography: AES-256 active.........",   delay: 1800, bold: false, dim: false, prefix: ">> " },
-  { text: "[OK] Agent sweep: sector 6 monitored.............",   delay: 2220, bold: false, dim: false, prefix: ">> " },
-  { text: "[OK] Secure channel to Zion Mainframe: OPEN......",   delay: 2640, bold: false, dim: false, prefix: ">> " },
-  { text: "──────────────────────────────────────────────────────", delay: 3050, bold: false, dim: true  },
-  { text: "SYSTEM INITIALIZED — ACCESS GRANTED — WELCOME OPERATOR", delay: 3300, bold: true,  dim: false },
+  { text: "──────────────────────────────────────────────────────", delay: 105,  bold: false, dim: true  },
+  { text: "[OK] ZION uplink established.....................",     delay: 263,  bold: false, dim: false, prefix: ">> " },
+  { text: "[OK] Hull integrity check: 91%....................",    delay: 500,  bold: false, dim: false, prefix: ">> " },
+  { text: "[OK] EMP charge: 74% — within safe threshold....",    delay: 726,  bold: false, dim: false, prefix: ">> " },
+  { text: "[OK] Kernel cryptography: AES-256 active.........",   delay: 947,  bold: false, dim: false, prefix: ">> " },
+  { text: "[OK] Agent sweep: sector 6 monitored.............",   delay: 1168, bold: false, dim: false, prefix: ">> " },
+  { text: "[OK] Secure channel to Zion Mainframe: OPEN......",   delay: 1389, bold: false, dim: false, prefix: ">> " },
+  { text: "──────────────────────────────────────────────────────", delay: 1605, bold: false, dim: true  },
+  { text: "SYSTEM INITIALIZED — ACCESS GRANTED — WELCOME OPERATOR", delay: 1737, bold: true,  dim: false },
 ] as const;
 
 const TOTAL_BLOCKS = 18;

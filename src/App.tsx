@@ -68,8 +68,8 @@ function App() {
         position: "relative",
       }}
     >
-      {/* Matrix rain: fixed background texture at subtle 0.15 opacity */}
-      <MatrixRain opacity={0.15} />
+      {/* Matrix rain: fixed background texture at subtle 0.15 opacity — only during hero to avoid duplicate canvas during intro */}
+      {phase === "hero" && <MatrixRain opacity={0.15} />}
 
       {/* Konami code easter egg overlay */}
       <KonamiOverlay />

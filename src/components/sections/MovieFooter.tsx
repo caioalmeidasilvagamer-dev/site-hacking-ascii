@@ -34,15 +34,15 @@ export function MovieFooter({ onReturnToPills }: MovieFooterProps) {
         </div>
 
         {/* Webring / Affiliate Banner Row */}
-        <div className="bevel-lowered bg-void p-2 flex flex-col items-center gap-1">
+        <div className="bevel-lowered bg-void p-3 flex flex-col items-center gap-2">
           <span className="font-label text-[8px] text-signal/60 uppercase tracking-widest">
             OFFICIAL WEBRING AFFILIATE NETWORK // 1999
           </span>
-          <div className="w-full max-w-[468px] h-24 bevel-raised overflow-hidden">
+          <div className="w-full px-2">
             <img
               src={webringBanner}
               alt="dark green webring affiliate banner"
-              className="w-full h-full object-cover"
+              className="w-full h-auto"
             />
           </div>
         </div>

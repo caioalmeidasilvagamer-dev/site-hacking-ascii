@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
 interface MatrixRainProps {
-  opacity?: number; // 0 a 1, densidade visual do efeito
+  opacity?: number;
   fontSize?: number;
   color?: string;
   headColor?: string;
@@ -9,6 +9,8 @@ interface MatrixRainProps {
 
 const CHARS =
   "アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン0123456789";
+
+const FRAME_INTERVAL = 50; // ~20fps — sufficient for a subtle 0.15-opacity background
 
 export function MatrixRain({
   opacity = 0.15,
@@ -28,10 +30,11 @@ export function MatrixRain({
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
-    let columns: number;
-    let drops: number[];
+    let columns = 0;
+    let drops: number[] = [];
     let animationId: number;
     let running = true;
+    let lastTime = 0;
 
     function resize() {
       if (!canvas) return;
@@ -41,10 +44,18 @@ export function MatrixRain({
       drops = Array(columns).fill(1);
     }
 
-    function draw() {
+    function draw(time: number) {
       if (!running || !canvas || !ctx) return;
 
-      // rastro (fade do frame anterior) — 0.08 acalma a chuva visualmente
+      // Delta-time throttle: only draw when enough time has accumulated
+      const delta = time - lastTime;
+      if (delta < FRAME_INTERVAL) {
+        animationId = requestAnimationFrame(draw);
+        return;
+      }
+      lastTime = time - (delta % FRAME_INTERVAL);
+
+      // Trail fade
       ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -55,11 +66,11 @@ export function MatrixRain({
         const x = i * fontSize;
         const y = drops[i] * fontSize;
 
-        // Cabeça do rastro: verde limão brilhante
+        // Head: bright lime green
         ctx.fillStyle = headColor;
         ctx.fillText(char, x, y);
 
-        // Corpo do rastro: verde Matrix vívido
+        // Body: vivid Matrix green
         ctx.fillStyle = color;
         ctx.fillText(char, x, y - fontSize);
 
@@ -74,10 +85,23 @@ export function MatrixRain({
 
     resize();
     if (prefersReducedMotion) {
-      draw();
+      // Draw one static frame then stop
       running = false;
+      ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.font = `${fontSize}px monospace`;
+      for (let i = 0; i < drops.length; i++) {
+        const char = CHARS[Math.floor(Math.random() * CHARS.length)];
+        const x = i * fontSize;
+        const y = drops[i] * fontSize;
+        ctx.fillStyle = headColor;
+        ctx.fillText(char, x, y);
+        ctx.fillStyle = color;
+        ctx.fillText(char, x, y - fontSize);
+      }
     } else {
-      draw();
+      lastTime = performance.now();
+      animationId = requestAnimationFrame(draw);
     }
 
     function handleResize() {
@@ -85,8 +109,13 @@ export function MatrixRain({
     }
 
     function handleVisibility() {
-      running = document.visibilityState === "visible" && !prefersReducedMotion;
-      if (running) draw();
+      if (document.visibilityState === "hidden") {
+        running = false;
+      } else if (!prefersReducedMotion) {
+        running = true;
+        lastTime = performance.now();
+        animationId = requestAnimationFrame(draw);
+      }
     }
 
     window.addEventListener("resize", handleResize);
